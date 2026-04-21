@@ -1,0 +1,23 @@
+def shift_cipher(text, shift, decrypt=False):
+    if decrypt:
+        shift = -shift
+    
+    result = ""
+    for char in text:
+        if char.isalpha():
+            start = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - start + shift) % 26 + start)
+        else:
+            result += char
+    return result
+
+# Usage
+message = "Hello World"
+s = 3
+
+encoded = shift_cipher(message, s)
+decoded = shift_cipher(encoded, s, decrypt=True)
+
+print(f"Original: {message}")
+print(f"Encoded:  {encoded}")
+print(f"Decoded:  {decoded}")

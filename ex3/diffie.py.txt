@@ -1,0 +1,27 @@
+def diffie_hellman(p, g, private_key):
+    public_key = pow(g, private_key, p)
+    return public_key
+
+def compute_shared_secret(received_public_key, private_key, p):
+    shared_secret = pow(received_public_key, private_key, p)
+    return shared_secret
+
+# Example Parameters
+p = 23
+g = 5
+
+# Alice
+a_private = 6
+a_public = diffie_hellman(p, g, a_private)
+
+# Bob
+b_private = 15
+b_public = diffie_hellman(p, g, b_private)
+
+# Exchange and generate secret
+alice_secret = compute_shared_secret(b_public, a_private, p)
+bob_secret = compute_shared_secret(a_public, b_private, p)
+
+print(f"Alice's Public: {a_public}")
+print(f"Bob's Public:   {b_public}")
+print(f"Shared Secret:  {alice_secret}")

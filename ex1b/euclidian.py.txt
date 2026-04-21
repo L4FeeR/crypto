@@ -1,0 +1,15 @@
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def extended_gcd(a, b):
+    if a == 0:
+        return b, 0, 1
+    gcd, x1, y1 = extended_gcd(b % a, a)
+    x = y1 - (b // a) * x1
+    y = x1
+    return gcd, x, y
+
+# Example
+print(f"GCD of 48 and 18: {gcd(48, 18)}")

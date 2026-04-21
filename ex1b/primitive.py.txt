@@ -1,0 +1,42 @@
+import math
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def find_prime_factors(n):
+    factors = set()
+    d = 2
+    temp = n
+    while d * d <= temp:
+        if temp % d == 0:
+            factors.add(d)
+            while temp % d == 0:
+                temp //= d
+        d += 1
+    if temp > 1:
+        factors.add(temp)
+    return factors
+
+def get_primitive_root(p):
+    if p == 2:
+        return 1
+    
+    phi = p - 1
+    factors = find_prime_factors(phi)
+    
+    for res in range(2, p):
+        is_primitive = True
+        for f in factors:
+            if pow(res, phi // f, p) == 1:
+                is_primitive = False
+                break
+        if is_primitive:
+            return res
+    return None
+
+# Example
+p = 23
+root = get_primitive_root(p)
+print(f"Smallest primitive root of {p} is {root}")
